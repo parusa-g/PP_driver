@@ -2,7 +2,6 @@ import os
 import numpy as np
 import f90nml
 import subprocess
-import time
 #===============================================================================
 class ExtractPotential(object):
    def __init__(self,mpicmd,exe_path,prefix,outdir,plot_num,iflag,latvec_file,atoms_file,inp_prefix,out_prefix,pot_prefix):
@@ -185,7 +184,6 @@ class ExtractPotential(object):
       if not os.path.exists(init_out):
          print('Running the initialization calculation')
          os.system('sbatch run_init.sh') 
-         init_is_done = True 
       else:
          print('Initialization calculation is already done')
       
@@ -203,22 +201,25 @@ class ExtractPotential(object):
 #===============================================================================
 if __name__ == '__main__':
    mpicmd = 'srun'
+   
+   # Path to the executable pp.x
    exe_path = os.environ['HOME'] + '/lmi-qe-mod/bin'
 
-   prefix = 'anooja'
+   prefix = 'MoTe2'
    outdir = './outdir'
 
    plot_num = 1
    iflag = 0
 
    latvec_file = 'inp/latvec.dat'
-   atoms_file = 'inp/struct_frac.xyz'
+   atoms_file = 'inp/atompos.dat'
    
    inp_prefix = 'inp/'
    out_prefix = 'outfiles/'
    pot_prefx = 'outfiles/'
    
-   atomref_ids = np.arange(26)
+   # Either one goes through all atoms or specify some particular atoms
+   atomref_ids = np.arange(6)
    
    pp = ExtractPotential(mpicmd,exe_path,prefix,outdir,
                          plot_num,iflag,latvec_file,atoms_file,
