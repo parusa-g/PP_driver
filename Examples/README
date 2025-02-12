@@ -1,6 +1,6 @@
 To run this example, run the following commands in order
 
 1) sbatch run.sh
-2) python ../src/GetLocalPotential.py
+2) python ../GetLocalPotential.py
 
 Make sure you load a python module in your cluster.
